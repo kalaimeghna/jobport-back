@@ -1,5 +1,5 @@
 import Application from "../models/Application.js"; // ✅ lowercase
-import Job from "../models/job.js";                  // ✅ lowercase
+import Job from "../models/Job.js";                  // ✅ lowercase
 import ErrorResponse from "../utils/errorResponse.js";
 
 /* ================= APPLY FOR A JOB ================= */
