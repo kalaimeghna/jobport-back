@@ -1,4 +1,4 @@
-import Application from "../models/application.js"; // ✅ lowercase
+import Application from "../models/Application.js"; // ✅ lowercase
 import Job from "../models/job.js";                  // ✅ lowercase
 import ErrorResponse from "../utils/errorResponse.js";
 

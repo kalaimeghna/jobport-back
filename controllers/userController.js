@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import User from "../models/user.js";
+import User from "../models/User.js";
 import ErrorResponse from "../utils/errorResponse.js";
 import sendTokenResponse from "../utils/sendTokenResponse.js";
 import sendEmail from "../utils/sendEmail.js";
