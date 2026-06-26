@@ -1,6 +1,6 @@
-import Job from "../models/job.js";
-import Application from "../models/application.js";
-import User from "../models/user.js";
+import Job from "../models/Job.js";
+import Application from "../models/Application.js";
+import User from "../models/User.js";
 
 /* ================= JOB RECOMMENDATIONS ================= */
 export const getJobRecommendations = async (req, res, next) => {

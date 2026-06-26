@@ -1,5 +1,5 @@
 import Company from "../models/Company.js";
-import Job from "../models/job.js";
+import Job from "../models/Job.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
 /* ===========================================
