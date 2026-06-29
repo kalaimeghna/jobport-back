@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
+      index: true,
     },
 
     password: {
@@ -34,6 +35,7 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       default: "",
+      trim: true,
     },
 
     profilePicture: {
@@ -44,22 +46,26 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
       default: "",
+      trim: true,
     },
 
     skills: [
       {
         type: String,
+        trim: true,
       },
     ],
 
     experience: {
       type: Number,
       default: 0,
+      min: 0,
     },
 
     education: {
       type: String,
       default: "",
+      trim: true,
     },
 
     company: {
@@ -74,7 +80,6 @@ const userSchema = new mongoose.Schema(
       default: null,
     },
 
-    // ✅ Added for save/unsave job feature
     savedJobs: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -87,7 +92,6 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
 
-    // Required for forgotPassword / resetPassword
     resetPasswordToken: {
       type: String,
       default: undefined,
@@ -103,7 +107,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Hash password before saving (async — no next needed)
+// Hash password before saving
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
 
@@ -113,7 +117,7 @@ userSchema.pre("save", async function () {
 
 // Compare password
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return bcrypt.compare(enteredPassword, this.password);
 };
 
 // Generate JWT
@@ -130,6 +134,7 @@ userSchema.methods.generateToken = function () {
   );
 };
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User =
+  mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;

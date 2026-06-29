@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A full-featured **Job Portal Backend API** built with Node.js, Express, and MongoDB.  \r It supports authentication, job postings, applications, resume uploads, company management, ATS system, and job recommendations.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -32,5 +32,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalaimeghna/jobport-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kalaimeghna/jobport-back/issues"
+  },
+  "homepage": "https://github.com/kalaimeghna/jobport-back#readme"
 }

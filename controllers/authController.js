@@ -9,6 +9,10 @@ export const register = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
 
+    if (!name || !email || !password || !role) {
+      return next(new ErrorResponse("Please fill all fields", 400));
+    }
+
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -73,8 +77,8 @@ export const getMe = async (req, res, next) => {
 
 /* ================= LOGOUT ================= */
 export const logout = async (req, res) => {
-  res.cookie("token", "none", {
-    expires: new Date(Date.now() + 10 * 1000),
+  res.cookie("token", "", {
+    expires: new Date(Date.now() + 1000),
     httpOnly: true,
   });
 
@@ -144,18 +148,14 @@ export const forgotPassword = async (req, res, next) => {
       subject: "Password Reset",
       html: `
         <h2>Password Reset</h2>
-        <p>You requested a password reset.</p>
-        <p>
-          <a href="${resetUrl}">
-            Click here to reset your password
-          </a>
-        </p>
+        <p>Click the link below to reset your password:</p>
+        <a href="${resetUrl}">${resetUrl}</a>
       `,
     });
 
     res.status(200).json({
       success: true,
-      message: "Password reset email sent successfully",
+      message: "Password reset email sent",
     });
   } catch (error) {
     next(error);
@@ -172,14 +172,12 @@ export const resetPassword = async (req, res, next) => {
 
     const user = await User.findOne({
       resetPasswordToken: resetToken,
-      resetPasswordExpire: {
-        $gt: Date.now(),
-      },
+      resetPasswordExpire: { $gt: Date.now() },
     });
 
     if (!user) {
       return next(
-        new ErrorResponse("Invalid or expired reset token", 400)
+        new ErrorResponse("Invalid or expired token", 400)
       );
     }
 
@@ -199,6 +197,6 @@ export const resetPassword = async (req, res, next) => {
 export const verifyEmail = async (req, res) => {
   res.status(200).json({
     success: true,
-    message: "Email verification endpoint is available.",
+    message: "Email verified successfully",
   });
 };

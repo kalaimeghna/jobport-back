@@ -4,10 +4,17 @@ import ErrorResponse from "../utils/errorResponse.js";
 /* ================= UPLOAD RESUME ================= */
 export const uploadResume = async (req, res, next) => {
   try {
+    if (!req.file) {
+      return next(new ErrorResponse("Please upload a resume", 400));
+    }
+
     const resume = await Resume.create({
       user: req.user.id,
-      file: req.file?.path,
-      title: req.body.title,
+      fileName: req.file.originalname,
+      fileUrl: req.file.path,
+      fileType: req.file.originalname.split(".").pop().toLowerCase(),
+      fileSize: req.file.size,
+      isDefault: true,
     });
 
     res.status(201).json({
